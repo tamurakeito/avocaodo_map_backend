@@ -1,0 +1,12 @@
+{
+  "name": "avocado_map_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "yarn build && cd docker && docker-compose up --build",
+    "build": "GO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o docker/main src/web.go"
+  },
+  "author": "",
+  "license": "ISC"
+}

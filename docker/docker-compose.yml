@@ -1,0 +1,40 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    container_name: avocado-map
+    volumes:
+      - .:/go/src/avocado-map
+    ports:
+      - "80:8080"
+    depends_on:
+      - db
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+  db:
+    image: mysql:latest
+    restart: always
+    container_name: avocado-map-db
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: avocado_map
+    hostname: db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/my.cnf:/etc/mysql/my.cnf
+      - ./db/log/mysql:/var/log/mysql
+      - ./db/sql:/docker-entrypoint-initdb.d
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+# マイグレーションは一時的にこの方法でsql実行しているだけ
+# 今後やりたいこと：migrate/migrateの使用とデータ永続化
