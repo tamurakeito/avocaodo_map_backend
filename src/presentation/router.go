@@ -13,8 +13,5 @@ func InitRouting(e *echo.Echo, httpHandler HttpHandler, wsHandler WsHandler) {
 	e.GET("/hogehoge", httpHandler.HogeHoge())
 
 	e.GET("/ws", wsHandler.WsTextMessage())
-
-	// e.GET("/ws", func(c echo.Context) error {
-	// 	return wsHandler(c)
-	// })
+	e.GET("/location", wsHandler.WsLocation())
 }

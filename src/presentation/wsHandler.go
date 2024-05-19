@@ -22,3 +22,14 @@ func (handler *WsHandler) WsTextMessage() echo.HandlerFunc {
 		return usecase.TextMessage(w, r)
 	}
 }
+
+func (handler *WsHandler) WsLocation() echo.HandlerFunc {
+
+	return func(c echo.Context) error {
+
+		w := c.Response().Writer
+		r := c.Request()
+
+		return usecase.Location(w, r)
+	}
+}
